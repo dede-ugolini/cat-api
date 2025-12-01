@@ -1,7 +1,10 @@
 import axios from "axios";
 
-const api = axios.create({
+export const catApi = axios.create({
   baseURL: 'https://api.thecatapi.com'
 });
 
-export default api;
+export const dinoApi = axios.create({
+  baseURL: 'https://dinoapi.brunosouzadev.com'
+});
+
