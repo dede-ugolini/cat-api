@@ -10,7 +10,11 @@ function App() {
     async function fetchData() {
       try {
         const response = await api.get(`/v1/images/search?page=${page}`);
-        setCat(response.data);
+        const data = response.data;
+        const id = data[0].id;
+        const response2 = await api.get(`v1/images/${id}`);
+        const data2 = response2.data;
+        setCat(data2);
       } catch (error) {
         console.log("Erro ao buscar imagem:", error);
       }
@@ -37,8 +41,8 @@ function App() {
   return (
     <>
       <h1>Pagina {page}</h1>
-      {cat[0] && (
-        <img src={cat[0].url} alt={cat[0].id} />
+      {cat && (
+        <img src={cat.url} alt={cat.id} />
       )}
       <br></br>
       <button type="button" onClick={backPage}>Back</button>
