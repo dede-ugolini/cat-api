@@ -1,8 +1,10 @@
-import { useState, useEffect } from 'react';
 import { catApi, dinoApi } from '../services/api';
+import { useState, useEffect } from 'react';
+import CatImage from './CatImage';
+import DinoImage from './DinoImage.jsx';
+import VS from '../assets/VS.png'
 
-function Request() {
-  const [page, setPage] = useState(1);
+function Request({ page }) {
   const [cat, setCat] = useState([]);
   const [dino, setDino] = useState([]);
 
@@ -36,38 +38,14 @@ function Request() {
     fetchDataDino();
   }, []);
 
-  function addPage() {
-    setPage(page + 1);
-    console.log(page);
-  }
-  function backPage() {
-    if (page >= 1) {
-      setPage(page - 1);
-    }
-    else {
-      console.log("Página mínima atingida");
-      return;
-    }
-  }
+
   return (
     <>
-      <h1>Pagina {page}</h1>
-      {cat && (
-        <img src={cat.url} alt={cat.id} style={{
-          maxHeight: '300px',
-          maxWidth: '300px'
-        }} />
-      )}
-      <img src="https://upload.wikimedia.org/wikipedia/commons/7/70/Street_Fighter_VS_logo.png" />
-      <img src={dino[0].image} style={{
-        maxHeight: '300px',
-        maxWidth: '300px'
-      }} />
+      <CatImage cat={cat} />
+      <img src={VS} alt='Not found' />
+      <DinoImage dino={dino} page={page} />
       <br></br>
-      <button type="button" onClick={backPage}>Back</button>
-      <button type="button" onClick={addPage}>Next</button>
     </>
-  )
+  );
 }
-
 export default Request;
